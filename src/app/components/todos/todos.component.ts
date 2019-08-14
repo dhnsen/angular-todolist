@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../../services/todo.service';
 import { Todo } from 'src/app/models/Todos';
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -9,26 +11,12 @@ export class TodosComponent implements OnInit {
 
   todos:Todo[];
 
-  constructor() { }
+  constructor(private todoService:TodoService) { }
 
   ngOnInit() {
-    this.todos = [
-      {
-        id: 1,
-        title: 'first todo',
-        complete: false
-      },
-      {
-        id: 2,
-        title: 'second todo',
-        complete: true
-      },
-      {
-        id: 3,
-        title: 'third todo',
-        complete: false
-      }
-    ]
+    this.todoService.getTodos().subscribe(todos => {
+      this.todos = todos;
+    });
   }
 
 }
