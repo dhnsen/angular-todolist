@@ -22,7 +22,14 @@ export class TodoService {
     return this.http.get<Todo[]>(this.todosUrl+this.todosLimit);
   }
 
+  deleteTodo(todo:Todo):Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`
+    return this.http.delete<Todo>(url, httpOptions);
+  }
+
+
   toggleCompleted(todo: Todo):Observable<any> {
+    const url = `${this.todosUrl}/${todo.id}`
     return this.http.put(url, todo, httpOptions);
   }
 }
